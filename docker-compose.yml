@@ -1,0 +1,13 @@
+services:
+  airflow:
+    build: .
+    command: standalone
+    ports:
+      - "8080:8080"
+    environment:
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_ALL_ADMINS: "true"  # sem login, apenas para uso local
+      LAKEHOUSE_ROOT: /opt/airflow/data/lake
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./data:/opt/airflow/data
