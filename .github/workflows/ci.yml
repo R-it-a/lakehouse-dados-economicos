@@ -28,6 +28,7 @@ jobs:
       AIRFLOW_VERSION: "3.0.2"
       PYTHON_VERSION: "3.12"
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      EXIGIR_AIRFLOW: "1"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -41,4 +42,4 @@ jobs:
       - name: Carregar as DAGs
         run: |
           airflow db migrate
-          pytest tests/test_dags.py
+          pytest tests/test_dags.py -v

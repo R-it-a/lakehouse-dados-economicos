@@ -1,11 +1,15 @@
 """Garante que as DAGs carregam no Airflow sem erros. Só roda com o Airflow instalado."""
 
+import os
 import sys
 from pathlib import Path
 
 import pytest
 
-pytest.importorskip("airflow")
+if os.environ.get("EXIGIR_AIRFLOW"):
+    import airflow  # noqa: F401  # no CI, falha em vez de pular se o Airflow não carregar
+else:
+    pytest.importorskip("airflow")
 
 PASTA_DAGS = Path(__file__).resolve().parents[1] / "dags"
 
